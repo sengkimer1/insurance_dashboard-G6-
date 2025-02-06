@@ -5,9 +5,7 @@ import { getTotalHFPartner,getTotalNonPartner } from "@/services/dashboard/get-t
 import { getTotalCompany, getTotalProspect} from "@/services/dashboard/get-total-prospect";
 import { getTotalPolicy,getTotalPremium } from "@/services/dashboard/get-total-prolicy";
 export async function OverviewDashboardCards() {
-  const totalSales = 10;
-  const totalCustomers = 10;
-  const totalSuppliers = 10;
+
 
   const totalInsured = await getTotalInsured();
   console.log(totalInsured);
