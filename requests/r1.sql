@@ -89,11 +89,10 @@ SELECT
   COUNT(*) AS total_policied
   FROM insurance_policy;
 --2.Total insured, total sum-insured
-SELECT
-COUNT( ic.insurance_policy_id) AS total_insured,
-SUM( ip.coverage_amount) AS total_sum_insured
-FROM insured_coverage ic
-JOIN insurance_policy_benefit ip ON ic.insurance_policy_id = ip.id;
+
+select sum(coverage_amount) as total_sum_insured
+from insured_coverage cov
+join insurance_policy_benefit ben on cov.insurance_policy_id=ben.insurance_policy_id
 
 --3.Total prospect, number of prospect campany
 SELECT
