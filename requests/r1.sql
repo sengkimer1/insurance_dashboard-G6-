@@ -103,7 +103,7 @@ FROM employee e
 JOIN company c ON e.company_id = c.id;
 --4.Total HF partner, number of not partner
 SELECT
-COUNT(*) AS total_hf_partners,
+COUNT(*) - COUNT(CASE WHEN is_partner_hf = TRUE THEN 1 END)AS total_hf_partners,
 COUNT(*) - COUNT(CASE WHEN is_partner_hf = FALSE THEN 1 END) AS total_non_partner
 FROM health_facility;
 
@@ -119,3 +119,28 @@ INSERT INTO health_facility (health_facility_name,is_partner_hf,phone_number,loc
  VALUES
 ('Chamkar Dong Health Center','false','+855 12 551 254',' Chamkar Dong (St. 217), Khva Village, 12401 Phnom Penh','A\N'),
 ('Prek Phneou Health Center','false','+855 12 449 570','No. 140, St. 364, 12308 Phnom Penh','A\N');
+
+
+--Request 7
+ALTER TABLE health_facility
+ALTER COLUMN phone_number TYPE text;
+--Request 8
+--Pending quotation, maximum premium [2pt]
+
+SELECT count(id) from quotation 
+    where quotation_status = 'Pending';
+
+ SELECT
+    MAX(proposed_premium) AS max_premium
+    FROM quotation q
+    WHERE q.quotation_status = 'Pending';
+
+--Approved quotation, number of company [2pt]
+SELECT
+COUNT(DISTINCT c.id) AS approved_quotation_company
+FROM quotation q
+JOIN company c ON q.company_id = c.id
+WHERE q.quotation_status = 'Approved';
+
+
+
