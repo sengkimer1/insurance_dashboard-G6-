@@ -95,11 +95,11 @@ from insured_coverage cov
 join insurance_policy_benefit ben on cov.insurance_policy_id=ben.insurance_policy_id
 
 --3.Total prospect, number of prospect campany
-SELECT
-COUNT(DISTINCT e.id) AS total_prospect,
-COUNT(DISTINCT c.id) AS total_prospect_company
-FROM employee e
-JOIN company c ON e.company_id = c.id;
+ SELECT 
+     COUNT(e.id) - COUNT(ic.id) AS total_prospect
+     FROM employee e
+    LEFT JOIN insured_coverage ic ON e.id = ic.employee_id
+  `;
 --4.Total HF partner, number of not partner
 SELECT
 COUNT(*) - COUNT(CASE WHEN is_partner_hf = TRUE THEN 1 END)AS total_hf_partners,
